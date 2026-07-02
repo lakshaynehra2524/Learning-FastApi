@@ -74,14 +74,6 @@ After completing this tutorial, you will understand how to:
 
 ---
 
-## 🛠 Tech Stack
-
-- Python
-- FastAPI
-- Uvicorn
-
----
-
 ## 📂 Branch Purpose
 
 This branch is part of my **FastAPI Learning** repository, where every branch represents a separate tutorial. Each branch focuses on one concept to maintain a structured, chapter-wise learning journey.
