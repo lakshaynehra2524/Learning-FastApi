@@ -1,8 +1,15 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
-app=FastAPI()
+app = FastAPI()
 
-# Users Route
-@app.get("/users/{user_id}")
-def get_user(user_id : int):
-    return {"user_id" : user_id}
+class User(BaseModel):
+    name:str
+    age:int
+
+@app.post("/Createuser")
+def create_user(user:User):
+    return {
+        "message":"User created !" ,
+        "data":user
+    }
