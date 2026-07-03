@@ -49,18 +49,37 @@ This repository covers topics including:
 
 ## 🌿 Repository Organization
 
-This repository is organized using **Git branches**.
+This repository follows a **branch-based development workflow**.
 
-Each tutorial or learning milestone is maintained in its own branch instead of being merged into `main`. This keeps every chapter independent and preserves the progression of my learning.
+Each tutorial or learning milestone is first developed in its own Git branch, allowing concepts to be implemented, tested, and documented independently.
 
-Example:
+Once a tutorial is complete, it is merged into the `main` branch through a Pull Request. As a result, the `main` branch represents the complete learning journey, while the individual branches preserve the development history of each tutorial.
 
-* `Tutorial-01`
-* `Tutorial-02`
-* `Tutorial-03`
-* ...
+### Workflow
 
-Use the **Branch** selector on GitHub to explore a specific tutorial.
+```
+Create Branch
+      ↓
+Develop Tutorial
+      ↓
+Commit Changes
+      ↓
+Push Branch
+      ↓
+Open Pull Request
+      ↓
+Merge into `main`
+```
+
+Example tutorial branches:
+
+- `Tutorial-01`
+- `Dynamic-Routes-02`
+- `Post-Api-03`
+- `PydanticModels-04`
+- ...
+
+The **main** branch contains the cumulative code from all completed tutorials, while the **Branches** section on GitHub can be used to explore the development history of individual topics.
 
 ## 🛠 Tech Stack
 
