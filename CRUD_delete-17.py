@@ -4,16 +4,21 @@ from sqlalchemy.orm import Session , sessionmaker , declarative_base
 
 app = FastAPI()
 
+# Database URL
 DATABASE_URL = "sqlite:///./CRUD_delete_test.db"
 
+# Engine create (DB connection)
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread":False}
+    connect_args={"check_same_thread": False}
 )
 
-sessionLocal = sessionmaker(bind=engine)
+# Session (DB operations ke liye)
+SessionLocal = sessionmaker(bind=engine)
 
-Base = declarative_base
+# Base (model ke liye)
+Base = declarative_base()
+
 
 # Table (Model)
 class Todo(Base):
@@ -23,17 +28,22 @@ class Todo(Base):
     title = Column(String)
     completed = Column(String)
 
+
+# Table create
 Base.metadata.create_all(bind=engine)
 
+
+# Dependency (DB session provide karega)
 def get_db():
-    db = sessionLocal()
+    db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
+#Create API
 @app.post("/todos")
-def create_todo(title:str , db:Session = Depends(get_db)):
+def create_todo(title:str,db: Session = Depends(get_db)):
     todo = Todo(title=title,completed="False")
     db.add(todo)
     db.commit()
@@ -43,6 +53,7 @@ def create_todo(title:str , db:Session = Depends(get_db)):
         "data":todo
     }
 
+# Read All Data
 @app.get("/todos")
 def get_todos(db:Session = Depends(get_db)):
     todos = db.query(Todo).all()
@@ -52,6 +63,7 @@ def get_todos(db:Session = Depends(get_db)):
         "data": todos
     }
 
+# Read Data bsed on ID
 @app.get("/todos/{todo_id}")
 def get_todo(todo_id= int, db: Session = Depends(get_db)):
     todo = db.query(Todo).filter(Todo.id == todo_id).first()
@@ -60,6 +72,7 @@ def get_todo(todo_id= int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Todo not found")
     return todo
 
+#Update
 @app.put("/todos/{todo_id}")
 def update_todo(todo_id:int, title:str, db: Session = Depends(get_db)):
     todo = db.query(Todo).filter(Todo.id == todo_id).first()
@@ -77,6 +90,7 @@ def update_todo(todo_id:int, title:str, db: Session = Depends(get_db)):
         "data": todo
     }
 
+#DELETE
 @app.delete("/todos/{todo_id}")
 def detete_todo(todo_id:int,db: Session = Depends(get_db)):
     todo = db.query(Todo).filter(Todo.id == todo_id).first()
