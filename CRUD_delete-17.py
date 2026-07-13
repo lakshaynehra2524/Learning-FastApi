@@ -42,3 +42,12 @@ def create_todo(title:str , db:Session = Depends(get_db)):
         "message":"Todo Created",
         "data":todo
     }
+
+@app.get("/todos")
+def get_todos(db:Session = Depends(get_db)):
+    todos = db.query(Todo).all()
+
+    return{
+        "Total":len(todos),
+        "data": todos
+    }
