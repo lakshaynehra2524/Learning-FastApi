@@ -24,3 +24,21 @@ class Todo(Base):
     completed = Column(String)
 
 Base.metadata.create_all(bind=engine)
+
+def get_db():
+    db = sessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.post("/todos")
+def create_todo(title:str , db:Session = Depends(get_db)):
+    todo = Todo(title=title,completed="False")
+    db.add(todo)
+    db.commit()
+    db.refresh(todo)
+    return{
+        "message":"Todo Created",
+        "data":todo
+    }
