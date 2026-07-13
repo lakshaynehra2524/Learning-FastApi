@@ -33,7 +33,7 @@ def get_db():
 
 @app.post("/todos")
 def create_todo(title:str , db : Session = Depends(get_db)):
-    todo = Todo(title=title , completed=False)
+    todo = Todo(title=title , completed=True)
     db.add(todo)
     db.commit()
     db.refresh(todo)
