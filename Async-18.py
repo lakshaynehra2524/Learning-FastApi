@@ -1,6 +1,8 @@
 import time
 import asyncio
+from fastapi import FastAPI
 
+app = FastAPI()
 
 # Sync structure 
 # def task():
