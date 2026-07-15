@@ -1,5 +1,8 @@
 import time
 import asyncio
-from fastapi import FastAPI
 
-app = FastAPI()
+
+# Sync structure 
+# def task():
+#     time.sleep(3)
+#     return "Done"
