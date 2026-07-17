@@ -2,7 +2,7 @@
 
 This branch demonstrates how to build **asynchronous APIs** in FastAPI using Python's `async` and `await` keywords.
 
-
+Asynchronous programming allows an application to handle multiple requests efficiently without blocking the execution thread.
 
 ---
 
