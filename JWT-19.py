@@ -31,3 +31,12 @@ def login(username:str , password:str):
         "access_token":token
     }
 
+def verify_token(token :str = Header(None)):
+    try :
+        payload = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
+        return payload
+    except:
+        raise HTTPException(
+            status_code=401 ,
+            detail="Invalid username or password"
+        )
