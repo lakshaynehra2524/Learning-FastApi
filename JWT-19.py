@@ -40,3 +40,11 @@ def verify_token(token :str = Header(None)):
             status_code=401 ,
             detail="Invalid username or password"
         )
+
+# Protected route 
+@app.get("/secure")
+def secure_data(user = Depends(verify_token)):
+    return{
+        "message":"Secure data accessed",
+        "user":user
+    }
