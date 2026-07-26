@@ -17,3 +17,17 @@ def create_token(data:dict):
 
     return token
 
+@app.post("/login")
+def login(username:str , password:str):
+    if username != "admin" or password != "1234":
+        raise HTTPException(
+            status_code=401,
+            detail= "Invalid username or password"
+        )
+    token = create_token({
+        "sub":username
+    })
+    return {
+        "access_token":token
+    }
+
