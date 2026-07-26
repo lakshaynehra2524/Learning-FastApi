@@ -38,7 +38,7 @@ def verify_token(token :str = Header(None)):
     except:
         raise HTTPException(
             status_code=401 ,
-            detail="Invalid username or password"
+            detail="Invalid or expired token"
         )
 
 # Protected route 
