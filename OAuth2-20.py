@@ -72,3 +72,11 @@ def verify_token(token:str = Depends(oauth2_schema)):
             status_code=401,
             detail="Invalid token"
         )
+
+#Protected Route
+@app.get("/protected")
+def protected_route(username: str = Depends(verify_token)):
+    return {
+        "message":"Hello you have access to this protected route!",
+        "user":username
+    }
