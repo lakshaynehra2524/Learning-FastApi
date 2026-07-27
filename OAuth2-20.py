@@ -40,3 +40,18 @@ def create_token(data : dict):
     })
     token =jwt.encode(to_encode , SECRET_KEY , algorithm=ALGORITHM)
     return token
+
+# Login API endpoint 
+@app.post("/login")
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = fake_user.get(form_data.username)
+    if not user or not verify_password(form_data.password , user["hashed_password"]):
+        raise HTTPException(
+            status_code=40 ,
+            detail="Invalid username or password"
+        )
+    access_token = create_token({"sub":form_data.username})
+    return {
+        "access token" : access_token,
+        "token_type" : "bearer"
+    }
