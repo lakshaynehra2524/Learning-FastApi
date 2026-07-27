@@ -55,3 +55,20 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
         "access token" : access_token,
         "token_type" : "bearer"
     }
+
+# Verify token 
+def verify_token(token:str = Depends(oauth2_schema)):
+    try:
+        payload = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
+        username : str = payload.get("sub")
+        if username is None :
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid token"
+            )
+        return username
+    except jwt.JWTError:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token"
+        )
