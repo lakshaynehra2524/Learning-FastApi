@@ -24,3 +24,10 @@ fake_user = {
         "hashed_password":pwd_context.hash("1234")
     }
 }
+
+def hash_password(password : str):
+    return pwd_context.hash("1234")
+
+def verify_password(plain_password , hashed_password):
+    return pwd_context.verify(plain_password , hashed_password)
+
