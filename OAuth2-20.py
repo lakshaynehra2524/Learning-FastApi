@@ -1,78 +1,85 @@
-from fastapi import FastAPI , Depends , HTTPException
-from jose import jwt
-from fastapi.security import OAuth2PasswordBearer , OAuth2PasswordRequestForm
-from datetime import datetime , timedelta , timezone
+from fastapi import FastAPI,HTTPException,Depends
+from jose import jwt,JWTError
+from fastapi.security import OAuth2PasswordBearer,OAuth2PasswordRequestForm
+from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 
 app = FastAPI()
 
-# JWT config 
+#JWT Config
 SECRET_KEY = "mysecret"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30 
+ACCESS_TOKEN_EXPIRE_MINUTES= 30
 
-# Password hashing setup 
-pwd_context = CryptContext(schemes=["bcrypt"] , deprecated="auto")
+#pASSWORD hASHING SETUP
+pwd_context = CryptContext(schemes=["bcrypt"],deprecated="auto")
 
-# Oauth setup 
-oauth2_schema = OAuth2PasswordBearer(token_url = "login")
+#OauthSetup
+oauth2_schema = OAuth2PasswordBearer(tokenUrl="login")
 
-# Dummy user DB 
-fake_user = {
-    "admin" : {
+#Dummy user DB
+fake_user_db = {
+    "admin":{
         "username":"admin",
         "hashed_password":pwd_context.hash("1234")
     }
 }
 
-def hash_password(password : str):
-    return pwd_context.hash("1234")
+#Hash Password
+def hash_password(password:str):
+    return pwd_context.hash(password)
 
-def verify_password(plain_password , hashed_password):
-    return pwd_context.verify(plain_password , hashed_password)
+#verify Password
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 
-# Create token 
-def create_token(data : dict):
+#Create Token
+def create_token(data: dict):
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + timedelta(minutes=30)
     to_encode.update({
         "exp":expire
     })
-    token =jwt.encode(to_encode , SECRET_KEY , algorithm=ALGORITHM)
+    token = jwt.encode(to_encode,SECRET_KEY,algorithm=ALGORITHM)
+
     return token
 
-# Login API endpoint 
+#Login API(OAuth2 Form)
 @app.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = fake_user.get(form_data.username)
-    if not user or not verify_password(form_data.password , user["hashed_password"]):
+    user = fake_user_db.get(form_data.username)
+    if not user or not verify_password(form_data.password,user["hashed_password"]):
         raise HTTPException(
-            status_code=40 ,
+            status_code=400,
             detail="Invalid username or password"
         )
     access_token = create_token({"sub":form_data.username})
+
     return {
-        "access token" : access_token,
-        "token_type" : "bearer"
+        "access_token":access_token,
+        "token_type":"bearer"
     }
 
-# Verify token 
-def verify_token(token:str = Depends(oauth2_schema)):
+#Token Varify
+def verify_token(token: str = Depends(oauth2_schema)):
     try:
-        payload = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
-        username : str = payload.get("sub")
-        if username is None :
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+
+        if username is None:
             raise HTTPException(
                 status_code=401,
                 detail="Invalid token"
             )
+
         return username
-    except jwt.JWTError:
+
+    except JWTError:
         raise HTTPException(
             status_code=401,
             detail="Invalid token"
         )
-
+    
 #Protected Route
 @app.get("/protected")
 def protected_route(username: str = Depends(verify_token)):
