@@ -11,8 +11,16 @@ SECRET_KEY = "mysecret"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30 
 
-#password hashing setup 
+# Password hashing setup 
 pwd_context = CryptContext(schemes=["bcrypt"] , deprecated="auto")
 
 # Oauth setup 
 oauth2_schema = OAuth2PasswordBearer(token_url = "login")
+
+# Dummy user DB 
+fake_user = {
+    "admin" : {
+        "username":"admin",
+        "hashed_password":pwd_context.hash("1234")
+    }
+}
