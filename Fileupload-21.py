@@ -44,3 +44,9 @@ def get_file(filename:str):
     return{
         "file_url":f"http://127.0.0.1:8000/files/{filename}"
     }
+
+@app.get("/")
+def home():
+    return{
+        "message":"File Uploaded api Running"
+    }
