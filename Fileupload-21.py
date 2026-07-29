@@ -32,3 +32,5 @@ def upload_file(file: UploadFile = File(...)):
             "fileName":filename,
             "file_url": f"http://127.0.0.1:8000/files/{filename}"
         }
+
+#Step-4:Get File URL API
