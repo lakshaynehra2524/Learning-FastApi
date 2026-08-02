@@ -1,10 +1,4 @@
-# 🚀 Learning-FastAPI
 
-A practical repository documenting my end-to-end learning journey with FastAPI through code.
-
-The purpose of this repository is to learn FastAPI by building real applications, experimenting with its features, and implementing best practices. Rather than focusing on theory, every topic is explored through hands-on coding examples and mini-projects.
-
----
 
 ## 🎯 Objectives
 
