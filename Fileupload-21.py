@@ -33,17 +33,7 @@ def upload_file(file: UploadFile = File(...)):
             "file_url": f"http://127.0.0.1:8000/files/{filename}"
         }
 
-#Step-4:Get File URL API
-@app.get("/files/{filename}")
-def get_file(filename:str):
-    file_path = os.path.join(UPLOAD_DIR,filename)
 
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="File not found")
-    
-    return{
-        "file_url":f"http://127.0.0.1:8000/files/{filename}"
-    }
 
 @app.get("/")
 def home():
