@@ -15,3 +15,9 @@ app.add_middleware(
     allow_methods = ["*"], #GET,PUT,POST,DELETE
     allow_headers=["*"]
 )
+
+@app.get("/")
+def home():
+    return{
+        "message":"CORS ENABLE API"
+    }
