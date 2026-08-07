@@ -1,15 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
-from dotenv import load_dotenv
+# import os
+# from dotenv import load_dotenv
+from config import settings
+
 app = FastAPI()
 
-load_dotenv()
+# load_dotenv()
 
 #Allowed Origins(Front-end URl)
-origins = os.getenv("ORIGINS")
-SECRET_KEY = os.getenv("SECRET_KEY")
-DB_URL = os.getenv("DB_URL")
+origins = settings.origins
+# SECRET_KEY = os.getenv("SECRET_KEY")
+# DB_URL = os.getenv("DB_URL")
 
 app.add_middleware(
     CORSMiddleware,
