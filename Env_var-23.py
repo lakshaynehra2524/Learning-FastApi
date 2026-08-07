@@ -6,6 +6,7 @@ app = FastAPI()
 
 load_dotenv()
 
+#Allowed Origins(Front-end URl)
 origins = os.getenv("ORIGINS")
 SECRET_KEY = os.getenv("SECRET_KEY")
 DB_URL = os.getenv("DB_URL")
