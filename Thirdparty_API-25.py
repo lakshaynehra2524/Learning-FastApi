@@ -18,6 +18,7 @@ def get_post(post_id : int):
     url = f"https://jsonplaceholder.typicode.com/posts/{post_id}"
     response = requests.get(url)
 
-    
+    if response.status_code != 200:
+            raise HTTPException(status_code=404 , detail="Page not found !")
     
     return response.json()
