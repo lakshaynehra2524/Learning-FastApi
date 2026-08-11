@@ -142,3 +142,16 @@ Client
 
 ---
 
+## 🎯 Learning Outcome
+
+After completing this tutorial, you will understand how to:
+
+- Consume an external REST API from FastAPI.
+- Send HTTP GET requests using Python.
+- Handle JSON responses from third-party services.
+- Pass path parameters to external API requests.
+- Handle unsuccessful API responses.
+- Expose external API data through your own FastAPI endpoints.
+
+---
+
