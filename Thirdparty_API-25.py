@@ -12,3 +12,12 @@ def get_posts():
     return response.json()
 
 
+# GET single post 
+@app.get("/posts/{post}")
+def get_post(post_id : int):
+    url = f"https://jsonplaceholder.typicode.com/posts/{post_id}"
+    response = requests.get(url)
+
+    
+    
+    return response.json()
