@@ -109,3 +109,16 @@ Return JSON Response
 
 ---
 
+## 🎯 Learning Outcome
+
+After completing this tutorial, you will understand how to:
+
+- Send HTTP requests to external websites.
+- Retrieve HTML content from web pages.
+- Parse HTML using BeautifulSoup.
+- Locate specific elements using HTML classes.
+- Extract useful information from web pages.
+- Integrate web crawling functionality into a FastAPI endpoint.
+
+---
+
