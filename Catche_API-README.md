@@ -189,3 +189,13 @@ After completing this tutorial, you will understand how to:
 
 ---
 
+## 🛠 Tech Stack
+
+- Python
+- FastAPI
+- Requests
+- BeautifulSoup4
+- Uvicorn
+
+---
+
