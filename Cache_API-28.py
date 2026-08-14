@@ -1,8 +1,14 @@
 from fastapi import FastAPI
 import requests
 from bs4 import BeautifulSoup
+import time
 
 app = FastAPI()
+
+# Cache Storage
+cache_data =[]
+last_fetch = 0
+
 
 # Getting news 
 @app.get("/news")
