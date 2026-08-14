@@ -28,3 +28,7 @@ def get_news():
         cache_data = [
             item.text for item in soup.find_all("span", class_="titleline")
         ]
+
+        last_fetch = time.time()
+
+        
