@@ -31,4 +31,14 @@ def get_news():
 
         last_fetch = time.time()
 
-        
+    else:
+        print("Using catche data")
+
+        end = time.time()
+
+        time_taken = round(end - start ,4)
+
+        return {
+            "time_taken" : time_taken ,
+            "data" : cache_data[:5]
+        }
