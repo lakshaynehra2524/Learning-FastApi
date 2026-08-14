@@ -199,3 +199,6 @@ After completing this tutorial, you will understand how to:
 
 ---
 
+## 📂 Branch Purpose
+
+This branch is part of my **FastAPI Learning** repository, where each branch represents an individual tutorial. Every branch focuses on a specific FastAPI concept, creating a structured, chapter-wise learning journey from fundamentals to production-ready API development.
