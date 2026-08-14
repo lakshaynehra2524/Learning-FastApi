@@ -9,20 +9,22 @@ app = FastAPI()
 cache_data =[]
 last_fetch = 0
 
-
 # Getting news 
 @app.get("/news")
-def get_news(page : int=1 , limit : int=5):
-    url = "https://news.ycombinator.com/"
+def get_news():
+    global cache_data, last_fetch
 
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text , "html.parser")
+    start = time.time()
 
-    title = []
+    if time.time() - last_fetch > 60:
+        print("Fetching Fresh Data")
 
-    for item in soup.find_all("span", class_="titleline"):
-        title.append(item.text)
+        url= "https://news.ycombinator.com/"
 
-    return{
-        "data":title[:5]
-    }
+        response = requests.get(url)
+
+        soup = BeautifulSoup(response.text,"html.parser")
+
+        cache_data = [
+            item.text for item in soup.find_all("span", class_="titleline")
+        ]
